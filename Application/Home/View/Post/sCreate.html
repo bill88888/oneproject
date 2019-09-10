@@ -1,0 +1,48 @@
+<extend name="Index/index" />
+<block name="minor">
+	<!--内容部分start-->
+				<!--统计部分start-->
+				<div id="count">
+				  今日: <em>1520</em>
+				  <span class="pipe">|</span>
+				  昨日: <em>1520</em>
+				  <span class="pipe">|</span>
+				  帖子: <em>{$count}</em>
+				  <span class="pipe">|</span>
+				  会员: <em>1520</em>
+				  <span class="pipe">|</span>
+				  欢迎新会员: <em><a href="">1520</a></em>
+				</div>
+				<!--统计部分end-->
+		<div class="content">			
+			<form action="/index.php?m=home&c=post&a=pSave" method="post">
+				<!-- <input type="hidden" name="cid" value="{$cid}"> -->
+				<table height="60">
+					<tr>
+					<th>选择模块:</th>
+						<td>
+						<select name="cname" /> 
+							<?php foreach( $cates as $cate ): ?>
+							<option>{$cate['cname']}</option>
+							<?php endforeach; ?>
+						</select>
+					</td>
+					</tr>
+					<tr>
+						<td><label>标题:</label></td>
+						<td><input type="text" name="title" size="50"></td>
+					</tr>
+					<tr>
+						<td><label>内容：</label></td>
+						<td><textarea name="content" rows="12" cols="80"></textarea></td>
+					</tr>
+					<tr>
+						<td colspan="2"><input type="submit" value="发贴" style="width:100px;height:30px;"></td>
+					</tr>
+		
+				</table>
+			</form>
+				
+		</div>
+        <!--内容部分end-->
+</block>

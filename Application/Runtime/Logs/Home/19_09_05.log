@@ -1,0 +1,6 @@
+[ 2019-09-05T11:24:58+08:00 ] 127.0.0.1 /
+ERR: SQLSTATE[HY000] [2002] php_network_getaddresses: getaddrinfo failed: 不知道这样的主机。 
+
+[ 2019-09-05T11:25:00+08:00 ] 127.0.0.1 /
+ERR: SQLSTATE[HY000] [2002] php_network_getaddresses: getaddrinfo failed: 不知道这样的主机。 
+

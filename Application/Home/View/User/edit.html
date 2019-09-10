@@ -1,0 +1,43 @@
+<extend name="Index/index" />
+
+<block name="main">
+		
+		<h1 style="margin-left:45%">修改个人信息</h1>	
+		<hr>
+	<!--内容部分start-->
+		<div class="content">			
+			<form action="/index.php?m=home&c=user&a=update&uid={$_SESSION['homeuser']['uid']}" method="post" enctype="multipart/form-data">
+				<table align="center" width="300" height="60">
+					<tr>
+						<td><label>用户名:</label></td>
+						<td><input type="text" name="uname" value="{$_SESSION['homeuser']['uname']}"></td>
+					</tr>
+					<tr>
+						<td><label>头像:</label></td>
+						<td>
+							<input type="file" name="uface" value="{$_SESSION['homeuser']['uface']}">
+							
+							<img src="/Public/Uploads/{$_SESSION['homeuser']['uface']}" width="100px" />
+						</td>
+
+					</tr>
+					<tr>
+						<td><label>手机号:</label></td>
+						<td><input type="text" name="tel" value="{$_SESSION['homeuser']['tel']}"></td>
+					</tr>
+					
+					<tr>
+						<th></th>
+                        <td>
+                          <input class="btn btn-primary btn6 mr10" value="修改" type="submit">
+                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                          <input class="btn btn6" onclick="history.go(-1)" value="返回" type="button">
+                        </td>
+                    </tr>
+					
+				</table>
+			</form>
+				
+		</div>
+		<!--内容部分end-->
+</block>

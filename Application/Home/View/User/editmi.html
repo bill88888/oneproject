@@ -1,0 +1,42 @@
+<extend name="Index/index" />
+<block name="main">
+	
+	<h1 style="margin-left:45%;">修改密码</h1>
+	<hr>
+	<div class="content">			
+			<form action="/index.php?m=home&c=user&a=updatemi&uid={$_SESSION['homeuser']['uid']}" method="post" enctype="multipart/form-data">
+				<table align="center" width="300" height="60">
+					<tr>
+						<td><label>用户名:</label></td>
+						<td><input type="text" name="uname" value="{$_SESSION['homeuser']['uname']}" readonly></td>
+					</tr>
+
+					<tr>
+						<td><label>旧密码:</label></td>
+						<td><input type="password" name="upwd" value=""></td>
+					</tr>
+
+					<tr>
+						<td><label>新密码:</label></td>
+						<td><input type="password" name="nupwd" value=""></td>
+					</tr>
+
+					<tr>
+						<td><label>确认新密码:</label></td>
+						<td><input type="password" name="renupwd" value=""></td>
+					</tr>
+					
+					<tr>
+						<th></th>
+                        <td>
+                          <input class="btn btn-primary btn6 mr10" value="修改" type="submit">
+                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                          <input class="btn btn6" onclick="history.go(-1)" value="返回" type="button">
+                        </td>
+                    </tr>
+					
+				</table>
+			</form>
+				
+		</div>
+</block>

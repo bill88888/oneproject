@@ -1,0 +1,163 @@
+<extend name="Index/index" />
+
+<block name="main">
+
+<!--/sidebar-->
+    <div class="main-wrap">
+
+        <div class="crumb-wrap">
+            <div class="crumb-list"><i class="icon-font"></i><a href="index.html">首页</a><span class="crumb-step">&gt;</span><span class="crumb-name">作品管理</span></div>
+        </div>
+        <div class="search-wrap">
+            <div class="search-content">
+                <form action="/index.php?m=admin&c=post&a=index" method="post">
+                    <table class="search-tab">
+                        <tr>
+                            <th width="120">分区:</th>
+                            <td>
+                                <select name="pname" id="">
+                                    <option value="">全部</option>
+                                    
+                                    <?php foreach( $parts as $part ): ?>
+                                    <option value="{$part['pname']}">{$part['pname']}</option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </td>
+                            <th width="120">所属模块:</th>
+                            <td>
+                                <select name="cname" id="">
+                                	<option value="">全部</option>
+                                	<?php foreach( $cates as $cate ): ?>
+                                    <option value="{$cate['cname']}">{$cate['cname']}</option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </td>
+                            <th width="70">标题:</th>
+                            <td><input class="common-text" placeholder="关键字" name="title" value="" id="" type="text"></td>
+                            <th width="70">发帖者:</th>
+                            <td><input class="common-text" placeholder="" name="uname" value="" id="" type="text"></td>
+                            <td><input class="btn btn-primary btn2" name="sub" value="查询" type="submit"></td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+        <div class="result-wrap">
+            <form name="myform" id="myform" method="post">
+                <div class="result-title">
+                    <div class="result-list">
+                        <a href="insert.html"><i class="icon-font"></i>新增作品</a>
+                        <a id="batchDel" href="javascript:void(0)"><i class="icon-font"></i>批量删除</a>
+                        <a id="updateOrd" href="javascript:void(0)"><i class="icon-font"></i>更新排序</a>
+                    </div>
+                </div>
+                <div class="result-content">
+                    <table class="result-tab" width="100%">
+                        <tr>
+                            <th>编号</th>
+                            <th>标题</th>
+                            <th>发帖者</th>
+                            <th>所属模块</th>
+                            <th>加精</th>
+                            <th>置顶</th>
+                            <th>创建时间</th>
+                            <th>修改时间</th>
+                            <th>浏览数</th>
+                            <th>回复数</th>
+                            <th>操作</th>
+                        </tr>
+						<?php foreach($post as $k=>$v): ?>
+                        <tr>
+                            <td>{$v['pid']}</td>
+                            <td>{$v['title']}</td>
+                            <td><?php
+                            $uid = $v['uid'];
+							$user = M('user') ->where("uid=$uid") ->find();
+                            
+                            if( empty($user) ){
+                            	echo '';
+                       	    }else{
+                        		echo $user['uname'];
+                    		}
+
+                        	?></td>
+                            <td>
+                                <?php
+                            $cid = $v['cid'];
+
+                            $cate = M('cate') ->where("cid=$cid") ->find();
+                            
+                            if( empty($cate) ){
+								echo '';
+                        	}else{
+								echo $cate['cname'];
+                        	}
+                            
+                            ?></td>
+                            <td>
+                              <?php
+                                if( $v[is_jing] ){
+                                    echo '是';
+                                }else{
+                                    echo '否';
+                                }
+                              ?>
+                            </td>
+                            <td>
+                                <?php
+                                    if( $v['is_ding'] ){
+                                        echo '是';
+                                    }else{
+                                        echo '否';
+                                    }
+                                ?>
+                            </td>
+                            <td>{:date('Y-m-d H:i:s',$v['created_at']) }</td>
+                            <td>{:date('Y-m-d H:i:s',$v['updated_at']) }</td>
+                            <td>{$v['v_cnt']}</td>
+                            <td>{$v['r_cnt']}</td>
+                            <td>
+
+                            <!--加精-->
+                            <?php if( !$v['is_jing'] ): ?>
+                          		<a class="link-jing" href="/index.php?m=admin&c=post&a=jing&pid={$v['pid']}">
+                            	加精</a>
+                            <?php else: ?>	
+                            	<a class="link-jing" href="/index.php?m=admin&c=post&a=nojing&pid={$v['pid']}">
+                            	取消加精</a>
+							<?php endif; ?>
+
+							<!--置顶-->
+							<?php if( !$v['is_ding'] ): ?>
+                            	<a class="link-ding" href="/index.php?m=admin&c=post&a=ding&pid={$v['pid']}">
+                            	置顶</a>
+                            <?php else: ?>		
+                            	<a class="link-ding" href="/index.php?m=admin&c=post&a=noding&pid={$v['pid']}">
+                            	取消置顶</a>
+							<?php endif; ?>
+
+                            <!--隐藏-->
+                            <?php if( !$v['hidden'] ): ?>
+                                <a class="link-yin" href="/index.php?m=admin&c=post&a=yin&pid={$v['pid']}">
+                                取消隐藏</a>
+                            <?php else: ?>      
+                                <a class="link-yin" href="/index.php?m=admin&c=post&a=noYin&pid={$v['pid']}">
+                                隐藏</a>
+                            <?php endif; ?>
+
+                                <a class="link-update" href="/index.php?m=admin&c=post&a=sReply&pid={$v['pid']}">查看回复</a>
+                                
+                                <a class="link-update" href="/index.php?m=admin&c=post&a=edit">修改</a>
+               
+                                <a class="link-del" href="/index.php?m=admin&c=post&a=del&pid={$v['pid']}">删除</a>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </table>
+                    <div class="list-page">{$show}</div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!--/main-->
+</block>
